@@ -19,7 +19,7 @@ def create_app():
 
     @app.errorhandler(HTTPException)
     def page_not_found(e):
-        return render_template('cat_error.html.j2', e=e)
+        return render_template('cat_error.html.j2', e=e), e.code
 
     return app
 

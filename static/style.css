@@ -1,13 +1,121 @@
 *, *::after, *::before { box-sizing: border-box }
 body { margin: 0 }
 div, h1, h2, h3, h4, h5, h6, p, ul, ol { margin: 0 }
-* { outline: 1px dotted rgba(0, 111, 0, 0.5) }
+/* * { outline: 1px dotted rgba(0, 111, 0, 0.5) } */
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1.5rem;
 }
 
+a {
+    color: inherit;
+    text-decoration-color: var(--link-colour);
+    text-decoration-thickness: 2px;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    border: 0;
+    /* border-bottom: 2px solid var(--link-colour); */
+}
+a:visited {
+    color: inherit
+}
+
+:root {
+    --link-colour: blue;
+    --hero-colour-bg: blue;
+    --hero-colour-text: white;
+}
+
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    background-color: white;
+    color: black;
+}
+
+header, footer {
+    background-color: var(--hero-colour-bg);
+    color: var(--hero-colour-text);
+    padding: 1rem;
+    margin: 2rem;
+    max-width: 30rem;
+    border-radius: 0.5rem;
+}
+
+header h2 {
+    margin-left: 1.5rem;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    background-color: white;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+}
+
+main {
+    padding: calc(1rem - 4px); /* compensate for border */
+    margin: 2rem;
+    max-width: 30rem;
+    border-radius: 0.5rem;
+    border: 4px solid var(--hero-colour-bg);
+}
+
+.book {
+    margin-bottom: 1rem;
+}
+
+.book:last-child {
+    margin-bottom: 0
+}
+
+.book h3 {
+    margin-bottom: 0;
+}
+
+.book .moreinfo {
+    /* margin-left: 1.5rem; */
+    text-align: right;
+    margin-right: 1.5rem;
+}
+
+footer {
+    font-size: 0.75rem;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+    text-decoration-line: overline underline;
+    text-decoration-style: dotted;
+}
+
+form.newbook > div {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+form.newbook input[type="submit"] {
+    grid-column: 1 / span 2;
+}
+
+form.delete button[type="submit"] {
+    width: 100%;
+    margin-top: 1rem;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 900;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: rgb(204, 0, 0);
+    border: 4px solid currentColor;
 }

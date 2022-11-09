@@ -1,6 +1,6 @@
 {% extends "base.html.j2" %}
 {% block content %}
-<form action="{{ url_for('.create_book') }}" method="POST">
+<form class="newbook" action="{{ url_for('.create_book') }}" method="POST">
     <div>
         <label>Title:</label>
         <input type="text" name="title">

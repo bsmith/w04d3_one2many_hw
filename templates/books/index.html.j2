@@ -11,10 +11,10 @@
         {% else %}
         <p class="needs-read">Need to read this!</p>
         {% endif %}
-        <p>by
+        <p class="author">by
             <a href="{{ url_for('authors.show_author', id=book.author.id) }}">{{ book.author.name }}</a>
         </p>
-        <p>
+        <p class="moreinfo">
             <a href="{{ url_for('.show_book', id=book.id) }}">More info...</a>
         </p>
     </article>

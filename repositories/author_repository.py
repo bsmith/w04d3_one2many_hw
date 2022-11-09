@@ -39,17 +39,6 @@ def save(user):
     user.id = id
     return user
 
-def select_all():
-    users = []
-
-    sql = "SELECT * FROM users"
-    results = run_sql(sql)
-
-    for row in results:
-        user = User(row['first_name'], row['last_name'], row['id'])
-        users.append(user)
-    return users
-
 def delete_all():
     sql = "DELETE  FROM users"
     run_sql(sql)

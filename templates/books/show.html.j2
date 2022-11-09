@@ -14,8 +14,8 @@
     <p>by
         <a href="{{ url_for('authors.show_author', id=book.author.id) }}">{{ book.author.name }}</a>
     </p>
-    <form class="delete-form" action="{{ url_for('.delete_book', id=book.id) }}" method="POST">
-        <button>Delete Book</button>
+    <form class="delete" action="{{ url_for('.delete_book', id=book.id) }}" method="POST">
+        <button type="submit">Delete Book</button>
     </form>
 </article>
 {% endblock %}
