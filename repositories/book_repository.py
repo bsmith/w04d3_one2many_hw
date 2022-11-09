@@ -7,19 +7,30 @@ import repositories.author_repository as author_repository
 SQL_SELECT_ALL = """SELECT * FROM books"""
 SQL_DELETE = """DELETE FROM books WHERE id = %s"""
 
-def make_mdo_from_row(row):
-    author = author_repository.select(row['author_id'])
-    book = Book(
-        row['title'],
-        row['page_count'],
-        row['has_read'],
-        author,
-        row['id'])
-    return book
+# This is a factory function that returns a factory function
+# A Factory Factory?!
+def get_mdo_factory():
+    author_cache = {}
+    def make_mdo_from_row(row):
+        author_id = row['author_id']
+        if author_id in author_cache:
+            author = author_cache[author_id]
+        else:
+            author = author_repository.select(row['author_id'])
+            author_cache[author_id] = author
+        book = Book(
+            row['title'],
+            row['page_count'],
+            row['has_read'],
+            author,
+            row['id'])
+        return book
+    return make_mdo_from_row
 
 def select_all():
     results = run_sql(SQL_SELECT_ALL)
 
+    make_mdo_from_row = get_mdo_factory()
     model_objects = [make_mdo_from_row(row) for row in results]
     return model_objects
 
