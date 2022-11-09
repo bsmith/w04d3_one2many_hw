@@ -2,24 +2,21 @@ from db.run_sql import run_sql
 
 from models.author import Author
 from models.book import Book
+from repositories.base import BaseRepository
 
-SQL_SELECT = """SELECT * FROM authors WHERE id = %s"""
+class AuthorRepository(BaseRepository):
+    SQL_SELECT = """SELECT * FROM authors WHERE id = %s"""
 
-def make_mdo_from_row(row):
-    author = Author(
-        row['name'],
-        row['bio'],
-        row['id'])
-    return author
+    def get_mdo_factory(self):
+        def make_mdo_from_row(row):
+            author = Author(
+                row['name'],
+                row['bio'],
+                row['id'])
+            return author
+        return make_mdo_from_row
 
-def select(id):
-    values = [id]
-    results = run_sql(SQL_SELECT, values)
-
-    if results:
-        row = results[0]
-        return make_mdo_from_row(row)
-    return None
+author_repository = AuthorRepository()
 
 """
 def save(user):

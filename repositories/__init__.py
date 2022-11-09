@@ -1,2 +1,2 @@
-from . import book_repository
-from . import author_repository
+from .book_repository import book_repository
+from .author_repository import author_repository
