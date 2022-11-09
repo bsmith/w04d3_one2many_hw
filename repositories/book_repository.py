@@ -5,6 +5,7 @@ from models.author import Author
 import repositories.author_repository as author_repository
 
 SQL_SELECT_ALL = """SELECT * FROM books"""
+SQL_DELETE = """DELETE FROM books WHERE id = %s"""
 
 def make_mdo_from_row(row):
     author = author_repository.select(row['author_id'])
@@ -21,6 +22,10 @@ def select_all():
 
     model_objects = [make_mdo_from_row(row) for row in results]
     return model_objects
+
+def delete(id):
+    values = [id]
+    run_sql(SQL_DELETE, values, do_fetchall=False)
 
 """
 def save(task):
@@ -45,11 +50,6 @@ def select(id):
 def delete_all():
     sql = "DELETE  FROM tasks"
     run_sql(sql)
-
-def delete(id):
-    sql = "DELETE  FROM tasks WHERE id = %s"
-    values = [id]
-    run_sql(sql, values)
 
 def update(task):
     sql = "UPDATE tasks SET (description, user_id, duration, completed) = (%s, %s, %s, %s) WHERE id = %s"

@@ -6,6 +6,9 @@
 {% for book in books_list %}
     <article class="book">
         <h3>{{ book }}</h3>
+        <form class="delete-form" action="{{ url_for('.delete_book', id=book.id) }}" method="POST">
+            <button>Delete Book</button>
+        </form>
     </article>
 {% endfor %}
 </div>

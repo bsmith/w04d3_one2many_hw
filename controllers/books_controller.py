@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 
 from repositories import author_repository, book_repository
 from models import Book, Author
@@ -7,13 +7,23 @@ from models import Book, Author
 books_blueprint = Blueprint('books', __name__)
 
 # RESTful CRUD Routes
+# INDEX     — GET '/books'
+# NEW       — GET '/books/new'
+# CREATE    — POST '/books'
+# SHOW      — GET '/books/<id>'
+# EDIT      — GET '/books/<id>/edit'
+# UPDATE    — PUT '/books/<id>'
+# DELETE    — DELETE '/books/<id>'
 
-# INDEX
-# GET '/books'
 @books_blueprint.route('/books/')
 def books():
     books_list = book_repository.select_all()
     return render_template('books/index.html.j2', books_list=books_list)
+
+@books_blueprint.route('/books/<int:id>/delete', methods=['POST'])
+def delete_book(id):
+    book_repository.delete(id)
+    return redirect(url_for('.books'))
 
 """
 # NEW
@@ -66,11 +76,4 @@ def update_task(id):
     # task = Task(description, user, duration, completed, id=id)
     book_repository.update(task)
     return redirect('/tasks') # XXX should be /tasks/<id>.  XXX also use url_for!
-
-# DELETE
-# DELETE '/tasks/<id>'
-@books_blueprint.route('/books/<int:id>/delete', methods=['POST'])
-def delete_task(id):
-    book_repository.delete(id)
-    return redirect('/tasks') # XXX also use url_for!
 """
