@@ -17,6 +17,17 @@ class AuthorRepository(BaseRepository):
             return author
         return make_mdo_from_row
 
+    def book_count(self, author):
+        sql = """SELECT count(books.id) as book_count
+            FROM books
+            WHERE books.author_id = %s
+            """
+        values = [author.id]
+        results = run_sql(sql, values)
+        if results:
+            return results[0]['book_count']
+        return None
+
 author_repository = AuthorRepository()
 
 """

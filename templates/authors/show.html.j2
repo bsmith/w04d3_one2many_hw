@@ -8,5 +8,6 @@
     <p class="author-bio">{{author.bio}}</p>
 
     <!-- list details of their books here -->
+    <p>They have <span class="book-count">{{book_count}}</span> {% if book_count > 1 %}books{% else %}book{% endif %}.</p>
 </article>
 {% endblock %}

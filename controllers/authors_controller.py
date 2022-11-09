@@ -18,4 +18,6 @@ authors_blueprint = Blueprint('authors', __name__)
 @authors_blueprint.route('/authors/<int:id>')
 def show_author(id):
     author = author_repository.select(id)
-    return render_template('authors/show.html.j2', title=author.name, author=author)
+    book_count = author_repository.book_count(author)
+    return render_template('authors/show.html.j2', title=author.name,
+        author=author, book_count=book_count)
