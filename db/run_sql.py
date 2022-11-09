@@ -13,7 +13,7 @@ def run_sql(sql: str, values: list = None, do_fetchall: bool = True) -> list[dic
         conn = psycopg2.connect(f"dbname='{DBNAME}'")
         # Define a cursor
         cur = conn.cursor(cursor_factory = ext.DictCursor)
-        print(cur.mogrify(sql, values))
+        print("SQL: ", cur.mogrify(sql, values))
         # Execute the SQL
         cur.execute(sql, values)
         # Commit

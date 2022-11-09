@@ -1,0 +1,13 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<p>Hello World from books/index.j2</p>
+
+<div class="books">
+{% for book in books_list %}
+    <article class="book">
+        <h3>{{ book }}</h3>
+    </article>
+{% endfor %}
+</div>
+
+{% endblock %}
