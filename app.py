@@ -15,7 +15,7 @@ def create_app():
 
     @app.route('/')
     def home():
-        return render_template('index.html.j2')
+        return render_template('index.html.j2', title="Homepage")
 
     @app.errorhandler(HTTPException)
     def page_not_found(e):

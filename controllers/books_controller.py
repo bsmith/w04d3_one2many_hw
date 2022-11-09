@@ -18,7 +18,7 @@ books_blueprint = Blueprint('books', __name__)
 @books_blueprint.route('/books/')
 def books():
     books_list = book_repository.select_all()
-    return render_template('books/index.html.j2', books_list=books_list)
+    return render_template('books/index.html.j2', title="All Books", books_list=books_list)
 
 @books_blueprint.route('/books/<int:id>/delete', methods=['POST'])
 def delete_book(id):
