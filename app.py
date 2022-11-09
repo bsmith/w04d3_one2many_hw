@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from werkzeug.exceptions import HTTPException
 
 # from controllers.books_controller import books_blueprint
 # from controllers.authors_controller import authors_blueprint
@@ -15,6 +16,10 @@ def create_app():
     @app.route('/')
     def home():
         return render_template('index.html.j2')
+
+    @app.errorhandler(HTTPException)
+    def page_not_found(e):
+        return render_template('cat_error.html.j2', e=e)
 
     return app
 
