@@ -3,6 +3,24 @@ from db.run_sql import run_sql
 from models.author import Author
 from models.book import Book
 
+SQL_SELECT = """SELECT * FROM authors WHERE id = %s"""
+
+def make_mdo_from_row(row):
+    author = Author(
+        row['name'],
+        row['bio'],
+        row['id'])
+    return author
+
+def select(id):
+    values = [id]
+    results = run_sql(SQL_SELECT, values)
+
+    if results:
+        row = results[0]
+        return make_mdo_from_row(row)
+    return None
+
 """
 def save(user):
     sql = "INSERT INTO users (first_name, last_name) VALUES (%s, %s) RETURNING *"
@@ -22,16 +40,6 @@ def select_all():
         user = User(row['first_name'], row['last_name'], row['id'])
         users.append(user)
     return users
-
-def select(id):
-    user = None
-    sql = "SELECT * FROM users WHERE id = %s"
-    values = [id]
-    result = run_sql(sql, values)[0]
-
-    if result is not None:
-        user = User(result['first_name'], result['last_name'], result['id'])
-    return user
 
 def delete_all():
     sql = "DELETE  FROM users"

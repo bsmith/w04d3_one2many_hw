@@ -7,7 +7,7 @@ import repositories.author_repository as author_repository
 SQL_SELECT_ALL = """SELECT * FROM books"""
 
 def make_mdo_from_row(row):
-    author = None # author_repository.select(row['author_id'])
+    author = author_repository.select(row['author_id'])
     book = Book(
         row['title'],
         row['page_count'],
