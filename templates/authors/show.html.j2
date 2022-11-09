@@ -1,0 +1,12 @@
+{% extends "base.html.j2" %}
+{% block subtitle %}
+<h2>Author Detail</h2>
+{% endblock %}
+{% block content %}
+<article class="author">
+    <h3 class="author-name">{{author.name}}</h3>
+    <p class="author-bio">{{author.bio}}</p>
+
+    <!-- list details of their books here -->
+</article>
+{% endblock %}
