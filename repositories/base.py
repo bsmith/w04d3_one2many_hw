@@ -26,3 +26,10 @@ class BaseRepository:
     def delete(self, id):
         values = [id]
         run_sql(self.SQL_DELETE, values, do_fetchall=False)
+
+    def save(self, mdo):
+        values = self.make_row_from_mdo(mdo)
+        results = run_sql(self.SQL_INSERT, values)
+        id = results[0]['id']
+        mdo.id = id
+        return mdo

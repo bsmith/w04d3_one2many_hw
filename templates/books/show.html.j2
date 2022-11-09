@@ -1,0 +1,21 @@
+{% extends "base.html.j2" %}
+{% block subtitle %}
+<h2>Book Detail</h2>
+{% endblock %}
+{% block content %}
+<article class="book">
+    <h3>{{ book.title }}</h3>
+    <p>Page count: {{ book.page_count }}</p>
+    {% if book.has_read %}
+    <p class="already-read">Already read this book</p>
+    {% else %}
+    <p class="needs-read">Need to read this!</p>
+    {% endif %}
+    <p>by
+        <a href="{{ url_for('authors.show_author', id=book.author.id) }}">{{ book.author.name }}</a>
+    </p>
+    <form class="delete-form" action="{{ url_for('.delete_book', id=book.id) }}" method="POST">
+        <button>Delete Book</button>
+    </form>
+</article>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<form action="{{ url_for('.create_book') }}" method="POST">
+    <div>
+        <label>Title:</label>
+        <input type="text" name="title">
+    </div>
+    <div>
+        <label>Page count:</label>
+        <input type="number" name="page_count">
+    </div>
+    <div>
+        <label>Has Read?</label>
+        <input type="checkbox" name="has_read">
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <select id="author" name="author_id">
+        {% for author in authors_list %}
+            <option value="{{ author.id }}">{{ author.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+{% endblock %}

@@ -5,6 +5,7 @@ from models.book import Book
 from repositories.base import BaseRepository
 
 class AuthorRepository(BaseRepository):
+    SQL_SELECT_ALL = """SELECT * from authors"""
     SQL_SELECT = """SELECT * FROM authors WHERE id = %s"""
 
     def get_mdo_factory(self):

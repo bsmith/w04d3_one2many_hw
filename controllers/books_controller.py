@@ -20,35 +20,33 @@ def books():
     books_list = book_repository.select_all()
     return render_template('books/index.html.j2', title="All Books", books_list=books_list)
 
+@books_blueprint.route('/books/new')
+def new_book():
+    authors_list = author_repository.select_all()
+    return render_template('books/new.html.j2', title="New Book", authors_list=authors_list)
+
+@books_blueprint.route('/books', methods=['POST'])
+def create_book():
+    title       = request.form['title']
+    page_count  = request.form['page_count']
+    has_read    = 'has_read' in request.form
+    author_id   = request.form['author_id']
+    author      = author_repository.select(author_id) # XXX we don't really, really need the whole author
+    book        = Book(title, page_count, has_read, author)
+    book_repository.save(book)
+    return redirect(url_for('.show_book', id=book.id))
+
+@books_blueprint.route('/books/<int:id>')
+def show_book(id):
+    book = book_repository.select(id)
+    return render_template('books/show.html.j2', title=book.title, book=book)
+
 @books_blueprint.route('/books/<int:id>/delete', methods=['POST'])
 def delete_book(id):
     book_repository.delete(id)
     return redirect(url_for('.books'))
 
 """
-# NEW
-# GET '/tasks/new'
-@books_blueprint.route('/books/new')
-def new_task():
-    users_list = author_repository.select_all()
-    return render_template('tasks/new.html.j2', users_list=users_list)
-
-# CREATE
-# POST '/tasks'
-@books_blueprint.route('/books', methods=['POST'])
-def create_task():
-    description = request.form['description']
-    user_id     = request.form['user_id']
-    duration    = request.form['duration']
-    completed   = request.form['completed']
-    user        = author_repository.select(user_id) # XXX we don't really, really need the whole user
-    task        = Task(description, user, duration, completed)
-    book_repository.save(task)
-    return redirect('/tasks') # XXX should this not be /tasks/<id> XXX also use url_for!
-
-# SHOW
-# GET '/tasks/<id>'
-
 # EDIT
 # GET '/tasks/<id>/edit'
 @books_blueprint.route('/books/<int:id>/edit')

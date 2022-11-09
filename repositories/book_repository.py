@@ -7,7 +7,9 @@ from repositories.base import BaseRepository
 
 class BookRepository(BaseRepository):
     SQL_SELECT_ALL = """SELECT * FROM books"""
+    SQL_SELECT = """SELECT * FROM books WHERE id = %s"""
     SQL_DELETE = """DELETE FROM books WHERE id = %s"""
+    SQL_INSERT = """INSERT INTO books (title, page_count, has_read, author_id) VALUES (%s, %s, %s, %s) RETURNING id"""
 
     # This is a factory function that returns a factory function
     # A Factory Factory?!
@@ -29,28 +31,12 @@ class BookRepository(BaseRepository):
             return book
         return make_mdo_from_row
 
+    def make_row_from_mdo(self, mdo):
+        return [mdo.title, mdo.page_count, mdo.has_read, mdo.author.id]
+
 book_repository = BookRepository()
 
 """
-def save(task):
-    sql = "INSERT INTO tasks (description, user_id, duration, completed) VALUES (%s, %s, %s, %s) RETURNING *"
-    values = [task.description, task.user.id, task.duration, task.completed]
-    results = run_sql(sql, values)
-    id = results[0]['id']
-    task.id = id
-    return task
-
-def select(id):
-    task = None
-    sql = "SELECT * FROM tasks WHERE id = %s"
-    values = [id]
-    result = run_sql(sql, values)[0]
-
-    if result is not None:
-        user = author_repository.select(result['user_id'])
-        task = Task(result['description'], user, result['duration'], result['completed'], result['id'])
-    return task
-
 def delete_all():
     sql = "DELETE  FROM tasks"
     run_sql(sql)
