@@ -8,6 +8,7 @@
 
 ```mermaid
 classDiagram
+Author <-- Book
 Author : int id
 Author : str name
 Author : str bio
@@ -16,7 +17,6 @@ Book : str title
 Book : int page_count
 Book : bool has_read
 Book : int author_id
-Author o-- Book
 ```
 
 ## Screenshots
