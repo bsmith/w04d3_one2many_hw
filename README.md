@@ -17,6 +17,16 @@ Book : str title
 Book : int page_count
 Book : bool has_read
 Book : int author_id
+class BaseRepository {
+    get_mdo_factory()
+    select(id)
+    select_all()
+    delete(id)
+    save(mdo)
+}
+BaseRepository <|-- BookRepository
+BaseRepository <|-- AuthorRepository
+AuthorRepository : book_count(author)
 ```
 
 ## Screenshots
